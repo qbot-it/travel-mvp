@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  backend:
+    image: python:3.12.0-alpine3.18
+    volumes:
+      - ./backend/:/usr/src/app/
+      - backend_local:/usr/local
+    working_dir: /usr/src/app
+    ports:
+      - "${BACKEND_HOST_PORT}:${BACKEND_PORT}"
+    stdin_open: true
+    depends_on:
+      - postgres
+    tty: true
+    networks:
+      - travel_network
+    command:
+      - /bin/sh
+      - -c
+      - |
+        pip install --root-user-action=ignore --upgrade -r /usr/src/app/requirements.txt
+        uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
+    environment:
+      - APP_ENV=${APP_ENV}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - DB_HOST=${BACKEND_DB_HOST}
+      - DB_USERNAME=${BACKEND_DB_USERNAME}
+      - DB_PASSWORD=${BACKEND_DB_PASSWORD}
+      - DB_DATABASE=${BACKEND_DB_DATABASE}
+      - DB_PORT=${BACKEND_DB_PORT}
+
+  postgres:
+    image: postgres:16.0-alpine3.18
+    environment:
+      - POSTGRES_USER=${BACKEND_DB_USERNAME}
+      - POSTGRES_PASSWORD=${BACKEND_DB_PASSWORD}
+      - POSTGRES_DB=${BACKEND_DB_DATABASE}
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - travel_network
+    ports:
+      - "${BACKEND_DB_HOST_PORT}:${BACKEND_DB_PORT}"
+
+volumes:
+  database:
+  backend_local:
+
+networks:
+  travel_network:
