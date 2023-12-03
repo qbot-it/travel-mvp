@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   backend:
-    image: python:3.12.0-alpine3.18
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     volumes:
       - ./backend/:/usr/src/app/
       - backend_local:/usr/local
@@ -14,12 +16,6 @@ services:
     tty: true
     networks:
       - travel_network
-    command:
-      - /bin/sh
-      - -c
-      - |
-        pip install --root-user-action=ignore --upgrade -r /usr/src/app/requirements.txt
-        uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
     environment:
       - APP_ENV=${APP_ENV}
       - BACKEND_PORT=${BACKEND_PORT}
