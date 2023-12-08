@@ -3,8 +3,8 @@
 import React from 'react';
 import Container from '../../styles/Container';
 import {Image} from 'react-bootstrap';
-import FormFileExample from './Form';
-import FillExample from '../navbar';
+// import FormFileExample from './Form';
+// import FillExample from '../navbar';
 
 function YourPage() {
     return (
