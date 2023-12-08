@@ -8,15 +8,27 @@ import FillExample from '../navbar';
 
 function YourPage() {
     return (
-        <Container>
+        <Container className="bg-light">
             <Image 
             src="./StatusBar.png"  
             alt="" 
             width={390}
             height={47}
             />
+            <Image 
+            src="./Logo.png"  
+            alt="" 
+            width={392}
+            height={34}
+            />
             <FormFileExample />
             <FillExample />
+            <Image 
+            src="./HomeIndicator.png"  
+            alt="" 
+            width={392}
+            height={34}
+            />
         </Container>
     );
 }
