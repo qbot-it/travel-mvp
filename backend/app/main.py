@@ -1,14 +1,23 @@
-from typing import Union
+from .components.image.routers import images
+from .components.task.services.task_runner import TaskRunner
+from .components.user.routers import users
+from .components.auth.routers import auth
+from .components.trip.routers import flights
+from .components.task.routers import tasks
 from fastapi import FastAPI
+from .db.database import engine, Base
+from multiprocessing import Process
 
-app = FastAPI()
+Base.metadata.create_all(bind=engine)
+app = FastAPI(title="EasyTrip")
 
+app.include_router(auth.router)
+app.include_router(users.router)
+app.include_router(images.router)
+app.include_router(flights.router)
+app.include_router(tasks.router)
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+task_runner = TaskRunner()
+p = Process(target=task_runner.run)
+p.daemon = True
+p.start()
