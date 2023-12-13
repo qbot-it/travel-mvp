@@ -19,3 +19,7 @@ Example: http://localhost:4000/docs
 ### Frontend
 http://host:FRONTEND_HOST_PORT \
 Example: http://localhost:3000/
+
+### Adminer
+http://host:ADMINER_HOST_PORT \
+Example: http://localhost:8080/
