@@ -1,11 +1,13 @@
+from ..dto.destination import Destination
+
+
 class DestinationService:
 
-    def get_unique_destinations(self, destinations: list) -> list:
+    def get_unique_destinations(self, destinations: list) -> list[Destination]:
         filtered = []
-        codes = {}
 
         for destination in destinations:
-            if destination.airport_code not in codes:
+            if destination.airport_code not in filtered:
                 filtered.append(destination)
 
         return filtered
