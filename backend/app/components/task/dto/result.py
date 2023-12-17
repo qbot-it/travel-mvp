@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-from ...trip.dto.flight import Flight
+from ...trip.dto.flight.flight import Flight
 
 
 class Result(BaseModel):

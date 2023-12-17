@@ -14,7 +14,7 @@ class UploadTaskHandler:
     __image_service: ImageService
     __descriptor_builder: DescriptorBuilder
     __task_service: TaskService
-    __fernet: any
+    __fernet: Fernet
 
     def __init__(self, db: Session, descriptor_builder: DescriptorBuilder):
         self.__image_service = ImageService(db)

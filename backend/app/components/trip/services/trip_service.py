@@ -1,7 +1,8 @@
-from .destination_recommender import DestinationRecommender
+from ..services.recommender.destination_recommender import DestinationRecommender
 from .destination_service import DestinationService
-from .flight_service import FlightService
+from ..services.flights.flight_service import FlightService
 from .image_selection_service import ImageSelectionService
+from ..dto.flight.flight import Flight
 from ..dto.search import Search
 from ...image.dto.descriptor import Descriptor
 from ...user.models.user import User
@@ -19,7 +20,7 @@ class TripService:
         self.__destination_service = DestinationService()
         self.__recommender = DestinationRecommender()
 
-    def find_trips(self, user: User, search: Search) -> list:
+    def find_trips(self, user: User, search: Search) -> list[Flight]:
         images = self.__image_selection_service.get_relevant_images(user)
 
         image_descriptions = []
@@ -37,4 +38,4 @@ class TripService:
             destination_flights = self.__flight_service.find_flights(search, destination)
             flights.extend(destination_flights)
 
-        return self.__flight_service.get_unique_flights(flights)
+        return flights

@@ -15,7 +15,7 @@ import base64
 
 class TaskService:
     __db: Session
-    __fernet: any
+    __fernet: Fernet
 
     def __init__(self, db: Session):
         self.__db = db

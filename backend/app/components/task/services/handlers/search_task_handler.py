@@ -23,5 +23,5 @@ class SearchTaskHandler:
             search_dto = Search.from_json(task.data if task.data is not None else {})
             trips = self.__trip_service.find_trips(task.user, search_dto)
             task.status = Status.FINISHED
-            task.result = Result(trips=trips).to_json()
+            task.result = Result(trips=map(lambda flight: flight.to_json(), trips)).to_json()
             self.__task_service.update_task(task)
