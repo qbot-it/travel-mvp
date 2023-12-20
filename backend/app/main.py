@@ -9,7 +9,7 @@ from .db.database import engine, Base
 from multiprocessing import Process
 
 Base.metadata.create_all(bind=engine)
-app = FastAPI(title="EasyTrip")
+app = FastAPI(title="EasyTrip AI")
 
 app.include_router(auth.router)
 app.include_router(users.router)

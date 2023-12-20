@@ -1,5 +1,7 @@
 # travel-mvp
 
+⚠️ For educational purposes only
+
 ## Starting the Project
 
 ### Dev Mode
@@ -12,7 +14,7 @@ Create .env file in the root of the project based on .env.example
 docker compose up
 ```
 
-### OpenApi
+### Api
 http://host:BACKEND_HOST_PORT/docs \
 Example: http://localhost:4000/docs
 
